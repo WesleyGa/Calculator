@@ -1,7 +1,6 @@
 ﻿
 using System;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
+
 
 
 namespace Calculator
@@ -39,7 +38,7 @@ namespace Calculator
                 case 4: Multiplicacao(); break;
                 case 5: Porcentagem(); break;
                 case 6: System.Environment.Exit(0); break; //encerra imediatamente a execução do programa.
-                default: Menu(); break;
+                default: Menu(); break; //O usuário volta ao menu se inserir uma opção inválida.
             }
 
         }
@@ -60,14 +59,14 @@ namespace Calculator
 
             // Console.WriteLine("O reultado da soma é " + resultado);
             // Interpolação de String. 
+            // Forma alternativa de calcular a soma, entre muitas outras: Console.WriteLine($"O reultado da soma é {v1 + v2}"); 
+
             Console.WriteLine($"O resultado da soma é {resultado}");
-            // Console.WriteLine($"O reultado da soma é {v1 + v2}"); 
 
 
-            Console.ReadKey();/*Um método que espera a entrada de um caractere do usuário no console. 
-                              Ele pausa a execução do programa até que uma tecla seja pressionada.*/
+            Console.ReadKey();// Pausa a execução para que o usuário veja o resultado
 
-            Menu();
+            Menu(); // Retorna ao menu principal após exibir o resultado.
         }
 
         static void Subtracao()
@@ -131,6 +130,7 @@ namespace Calculator
             Console.WriteLine("2 - Diminuir um valor em X%");
             Console.WriteLine("3 - Calcular X% de um valor");
             Console.WriteLine("4 - Descobrir o valor total a partir de uma porcentagem (Ex: 221 é 30% de quanto?)");
+            Console.WriteLine("5 - Voltar ao menu");
             Console.WriteLine("---------------------------------------------");
 
             ushort opcao = ushort.Parse(Console.ReadLine());
@@ -142,6 +142,11 @@ namespace Calculator
                     SubtrairPorcentagem(); break;
                 case 3:
                     CalculoValorPercentual(); break;
+                case 4:
+                    EncontrarValorOriginal(); break;
+                case 5: Menu(); break;
+
+                default: Menu(); break;
             }
 
             // Exemplo: 1052 + 10%
@@ -160,7 +165,7 @@ namespace Calculator
 
                 Console.ReadKey();
 
-                Menu();
+                Porcentagem();
             }
 
             // Exemplo: 1052 - 10%
@@ -177,7 +182,7 @@ namespace Calculator
                 float resultado = v1 - (v1 * v2 / 100);
                 Console.WriteLine($"O valor após subtrair a porcentagem é: {resultado}");
                 Console.ReadKey();
-                Menu();
+                Porcentagem();
             }
 
             // Exemplo: 10% de 1052
@@ -194,10 +199,25 @@ namespace Calculator
                 float resultado = v1 * v2 / 100;
                 Console.WriteLine($"{v2}% de {v1} é: {resultado}");
                 Console.ReadKey();
-                Menu();
+                Porcentagem();
             }
 
+            // Exemplo: 221 é 30% de qual valor total?"
+            void EncontrarValorOriginal()
+            {
+                Console.Clear();
+                Console.WriteLine("Digite o valor parcial (parte do total): ");
+                float v1 = float.Parse(Console.ReadLine());
+                Console.WriteLine("Agora, informe a porcentagem que esse valor representa: ");
+                float v2 = float.Parse(Console.ReadLine());
 
+                float resultado = (v1 / v2) * 100;
+                Console.WriteLine($"Se {v1} representa {v2}%, então 100% equivale a {resultado}");
+                Console.ReadKey();
+                Porcentagem();
+
+
+            }
         }
     }
 }
